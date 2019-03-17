@@ -1,26 +1,15 @@
-import { Component } from '@angular/core';
-import { AuthService } from './../auth/auth.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styles: [
-    `.angular-logo {
-        margin: 0 4px 3px 0;
-        height: 35px;
-        vertical-align: middle;
-    }
-    .fill-remaining-space {
-      flex: 1 1 auto;
-    }
-    `
-  ]
+  styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor() { }
 
-  onLogout() {
-    this.authService.logout();
+  ngOnInit() {
   }
+
 }

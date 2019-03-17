@@ -1,36 +1,36 @@
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AppMaterialModule } from './app-material/app-material.module';
-import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { AuthGuard } from './auth/auth.guard';
-import { AuthService } from './auth/auth.service';
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
-import { HomeLayoutComponent } from './layouts/home-layout.component';
-import { LoginLayoutComponent } from './layouts/login-layout.component';
-import { LoginComponent } from './login/login.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthguardGuard } from './authguard.guard';
+import { UserService } from './user.service'
+
+const appRoutes:Routes = [
+  {
+    path: '',
+    component: LoginFormComponent
+  },
+  {
+    path: 'dashboard',
+    canActivate: [AuthguardGuard],
+    component: DashboardComponent
+  }
+]
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    HomeLayoutComponent,
-    LoginLayoutComponent,
-    HeaderComponent
-  ],
+  declarations: [AppComponent, HeaderComponent, LoginFormComponent, FooterComponent, DashboardComponent],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AppMaterialModule
+  RouterModule.forRoot(appRoutes),
+  BrowserModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [UserService, AuthguardGuard],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
